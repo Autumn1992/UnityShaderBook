@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Shader_Chapter5/Shader.unity
+  isLoaded: 1
+  isActive: 1

@@ -59,6 +59,8 @@ Shader "UnityShaderBook/Chapter6/BlinnPhongSpecular"
 				//将模型坐标空间的法线转换到世界空间坐标系
 				//mul(v, m) = mul(tranpose(m), v) 下面的计算相当于用逆转置矩阵计算 避免法线计算出问题
 				o.worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
+				//Unity内置函数求解
+				o.worldNormal = normalize(UnityObjectToWorldNormal(v.normal));
 				o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				
 				return o;
@@ -74,9 +76,12 @@ Shader "UnityShaderBook/Chapter6/BlinnPhongSpecular"
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 
 				fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+				fixed3 worldLightDir1 = normalize(UnityWorldSpaceLightDir(worldPos));
+
 				fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLightDir));
 				//视角方向
 				fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
+				fixed3 viewDir1 = normalize(UnityWorldSpaceViewDir(worldPos));
 				//半角向量方向
 				fixed3 halfDir = normalize(worldLightDir + viewDir);
 

@@ -54,6 +54,8 @@ Shader "UnityShaderBook/Chapter5/SimpleShader"
 			}
 
 			//SV_TARGET语义是hlsl中的一个系统语义 告诉渲染器将
+			//SV system-value semantics 系统数值 DirectX10引入的系统数值语义
+			//在大多数平台上POSITION语义和SV_Target一致 但在PS4上必须使用SV_Position SV_Target也如此
 			//输出颜色存储到一个渲染目标 这里默认输出到帧缓存中
 			fixed4 frag1() : SV_TARGET{
 
